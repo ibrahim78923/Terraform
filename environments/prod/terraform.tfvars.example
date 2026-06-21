@@ -1,0 +1,6 @@
+aws_region  = "us-east-1"
+environment = "prod"
+project_name = "agenticcreed"
+
+cluster_name              = "agenticcreed-prod-ecs"
+enable_container_insights = true

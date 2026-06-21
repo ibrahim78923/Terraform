@@ -1,0 +1,6 @@
+aws_region  = "us-east-1"
+environment = "stage"
+project_name = "agenticcreed"
+
+cluster_name              = "agenticcreed-stage-ecs"
+enable_container_insights = true
