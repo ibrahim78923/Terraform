@@ -1,19 +1,16 @@
 variable "aws_region" {
   description = "AWS region for all resources."
   type        = string
-  default     = "us-east-1"
 }
 
 variable "environment" {
   description = "Environment name."
   type        = string
-  default     = "prod"
 }
 
 variable "project_name" {
   description = "Project name used in resource tags."
   type        = string
-  default     = "agenticcreed"
 }
 
 variable "additional_tags" {
@@ -30,5 +27,19 @@ variable "cluster_name" {
 variable "enable_container_insights" {
   description = "Enable CloudWatch Container Insights for the ECS cluster."
   type        = bool
-  default     = true
+}
+
+variable "repository_name" {
+  description = "Name of the ECR repository."
+  type        = string
+}
+
+variable "image_tag_mutability" {
+  description = "Whether ECR image tags can be overwritten. Valid values: MUTABLE or IMMUTABLE."
+  type        = string
+}
+
+variable "scan_on_push" {
+  description = "Enable ECR image scanning when images are pushed."
+  type        = bool
 }

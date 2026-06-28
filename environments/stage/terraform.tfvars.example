@@ -4,3 +4,7 @@ project_name = "agenticcreed"
 
 cluster_name              = "agenticcreed-stage-ecs"
 enable_container_insights = true
+
+repository_name        = "agenticcreed-stage-ecr"
+image_tag_mutability   = "MUTABLE"
+scan_on_push           = true

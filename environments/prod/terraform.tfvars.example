@@ -4,3 +4,7 @@ project_name = "agenticcreed"
 
 cluster_name              = "agenticcreed-prod-ecs"
 enable_container_insights = true
+
+repository_name        = "agenticcreed-prod-ecr"
+image_tag_mutability   = "IMMUTABLE"
+scan_on_push           = true
