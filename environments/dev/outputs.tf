@@ -92,3 +92,13 @@ output "worker_log_group_name" {
   description = "CloudWatch log group for the worker service."
   value       = module.worker_service.log_group_name
 }
+
+output "ssm_parameter_prefix" {
+  description = "SSM parameter path prefix."
+  value       = module.ssm.prefix
+}
+
+output "ssm_parameter_names" {
+  description = "Map of env keys to full SSM parameter names."
+  value       = module.ssm.parameter_names
+}

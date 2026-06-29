@@ -170,3 +170,18 @@ variable "worker_environment" {
   type        = map(string)
   default     = {}
 }
+
+variable "ssm_parameter_prefix" {
+  description = "SSM Parameter Store path prefix (e.g. agenticcreed/dev)."
+  type        = string
+  default     = "agenticcreed/dev"
+}
+
+variable "ssm_parameters" {
+  description = "SSM parameter keys at /{ssm_parameter_prefix}/{key}. Values are set in AWS Console, not Terraform."
+  type = map(object({
+    secure      = optional(bool, false)
+    description = optional(string, "")
+  }))
+  default = {}
+}

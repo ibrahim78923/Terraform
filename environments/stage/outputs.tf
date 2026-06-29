@@ -62,3 +62,43 @@ output "target_group_arn" {
   description = "ARN of the default ALB target group."
   value       = module.alb.target_group_arn
 }
+
+output "https_listener_arn" {
+  description = "ARN of the HTTPS listener."
+  value       = module.alb.https_listener_arn
+}
+
+output "certificate_arn" {
+  description = "ACM certificate ARN used by the HTTPS listener."
+  value       = module.alb.certificate_arn
+}
+
+output "backend_service_name" {
+  description = "Name of the backend ECS service."
+  value       = module.backend_service.service_name
+}
+
+output "worker_service_name" {
+  description = "Name of the worker ECS service."
+  value       = module.worker_service.service_name
+}
+
+output "backend_log_group_name" {
+  description = "CloudWatch log group for the backend service."
+  value       = module.backend_service.log_group_name
+}
+
+output "worker_log_group_name" {
+  description = "CloudWatch log group for the worker service."
+  value       = module.worker_service.log_group_name
+}
+
+output "ssm_parameter_prefix" {
+  description = "SSM parameter path prefix."
+  value       = module.ssm.prefix
+}
+
+output "ssm_parameter_names" {
+  description = "Map of env keys to full SSM parameter names."
+  value       = module.ssm.parameter_names
+}

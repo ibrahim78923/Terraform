@@ -73,6 +73,13 @@ variable "environment" {
   default     = {}
 }
 
+variable "secrets" {
+  description = "Map of container environment variable names to SSM parameter ARNs."
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+}
+
 variable "log_retention_in_days" {
   description = "CloudWatch log retention in days."
   type        = number

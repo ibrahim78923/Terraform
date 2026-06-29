@@ -35,6 +35,15 @@ module "alb" {
   ssl_policy                 = var.ssl_policy
 }
 
+module "ssm" {
+  source = "../../modules/ssm"
+
+  prefix     = var.ssm_parameter_prefix
+  parameters = var.ssm_parameters
+
+  tags = local.common_tags
+}
+
 module "backend_service" {
   source = "../../modules/ecs-service"
 
@@ -51,6 +60,7 @@ module "backend_service" {
   target_group_arn      = module.alb.target_group_arn
   alb_security_group_id = module.alb.security_group_id
   command               = var.backend_command
+  secrets               = module.ssm.parameter_arns
   environment = merge(
     {
       APP_MODE = "backend"
@@ -72,6 +82,7 @@ module "worker_service" {
   vpc_id        = module.vpc.vpc_id
   subnet_ids    = module.vpc.private_subnet_ids
   command       = var.worker_command
+  secrets       = module.ssm.parameter_arns
   environment = merge(
     {
       APP_MODE = "worker"

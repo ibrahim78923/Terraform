@@ -96,3 +96,92 @@ variable "ssl_policy" {
   type        = string
   default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 }
+
+variable "image_tag" {
+  description = "Docker image tag to deploy from ECR."
+  type        = string
+}
+
+variable "backend_service_name" {
+  description = "Name of the backend ECS service."
+  type        = string
+}
+
+variable "worker_service_name" {
+  description = "Name of the worker ECS service."
+  type        = string
+}
+
+variable "backend_cpu" {
+  description = "Fargate CPU units for the backend task."
+  type        = number
+}
+
+variable "backend_memory" {
+  description = "Fargate memory (MiB) for the backend task."
+  type        = number
+}
+
+variable "backend_desired_count" {
+  description = "Desired number of backend tasks."
+  type        = number
+}
+
+variable "backend_container_port" {
+  description = "Container port exposed by the backend service."
+  type        = number
+}
+
+variable "backend_command" {
+  description = "Optional command override for the backend container."
+  type        = list(string)
+  default     = []
+}
+
+variable "backend_environment" {
+  description = "Additional environment variables for the backend container."
+  type        = map(string)
+  default     = {}
+}
+
+variable "worker_cpu" {
+  description = "Fargate CPU units for the worker task."
+  type        = number
+}
+
+variable "worker_memory" {
+  description = "Fargate memory (MiB) for the worker task."
+  type        = number
+}
+
+variable "worker_desired_count" {
+  description = "Desired number of worker tasks."
+  type        = number
+}
+
+variable "worker_command" {
+  description = "Optional command override for the worker container."
+  type        = list(string)
+  default     = []
+}
+
+variable "worker_environment" {
+  description = "Additional environment variables for the worker container."
+  type        = map(string)
+  default     = {}
+}
+
+variable "ssm_parameter_prefix" {
+  description = "SSM Parameter Store path prefix (e.g. agenticcreed/prod)."
+  type        = string
+  default     = "agenticcreed/prod"
+}
+
+variable "ssm_parameters" {
+  description = "SSM parameter keys at /{ssm_parameter_prefix}/{key}. Values are set in AWS Console, not Terraform."
+  type = map(object({
+    secure      = optional(bool, false)
+    description = optional(string, "")
+  }))
+  default = {}
+}

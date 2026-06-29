@@ -21,6 +21,14 @@ locals {
         }
       },
       length(var.command) > 0 ? { command = var.command } : {},
+      length(var.secrets) > 0 ? {
+        secrets = [
+          for name, arn in var.secrets : {
+            name      = name
+            valueFrom = arn
+          }
+        ]
+      } : {},
       var.container_port != null ? {
         portMappings = [
           {

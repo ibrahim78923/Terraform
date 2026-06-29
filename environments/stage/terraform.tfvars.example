@@ -15,6 +15,80 @@ scan_on_push           = true
 alb_name                   = "agenticcreed-stage-alb"
 internal                   = false
 enable_deletion_protection = false
-target_group_port          = 80
-health_check_path          = "/"
+target_group_port          = 8000
+health_check_path          = "/health"
 certificate_domain_name    = "agenticcreed-stage.local"
+
+image_tag             = "latest"
+backend_service_name  = "agenticcreed-stage-backend"
+worker_service_name   = "agenticcreed-stage-worker"
+
+backend_cpu            = 256
+backend_memory         = 512
+backend_desired_count  = 1
+backend_container_port = 8000
+
+worker_cpu           = 256
+worker_memory        = 512
+worker_desired_count = 1
+
+# Keys only — values set in AWS Console → Parameter Store
+ssm_parameter_prefix = "agenticcreed/stage"
+
+ssm_parameters = {
+  AIRBYTE_TOKEN_URL               = { secure = true }
+  ALLOWED_HOSTS                   = { secure = true }
+  AMAZON_CLIENT_ID                = { secure = true }
+  AMAZON_CLIENT_SECRET            = { secure = true }
+  ANTHROPIC_API_KEY               = { secure = true }
+  APP_SECRET_KEY                  = { secure = true }
+  AUTH0_CLIENT_ID                 = { secure = true }
+  AUTH0_M2M_CLIENT_ID             = { secure = true }
+  AUTH0_REDIRECT_URI              = { secure = true }
+  AWS_ACCOUNT_ID                  = { secure = true }
+  AWS_S3_ASSET_BUCKET             = { secure = true }
+  AWS_SQS_PREFIX                  = { secure = true }
+  CURSOR_MODEL                    = { secure = true }
+  DB_HOST                         = { secure = true }
+  DB_NAME                         = { secure = true }
+  DB_PASSWORD                     = { secure = true }
+  DB_PORT                         = { secure = true }
+  DB_USER                         = { secure = true }
+  DEBUG                           = { secure = true }
+  DJANGO_LOG_LEVEL                = { secure = true }
+  DJANGO_SECRET_KEY               = { secure = true }
+  EMAIL_BRAND_INBOX_DOMAIN        = { secure = true }
+  EMAIL_DISPATCH_MODE             = { secure = true }
+  EMAIL_HOST_PASSWORD             = { secure = true }
+  EMAIL_INBOUND_ENFORCE_WHITELIST = { secure = true }
+  ENABLE_LIVE_API_WRITES          = { secure = true }
+  GOOGLE_ADS_CALLBACK_URL         = { secure = true }
+  GOOGLE_ADS_CLIENT_ID            = { secure = true }
+  GOOGLE_ADS_CLIENT_SECRET        = { secure = true }
+  GOOGLE_ADS_DEVELOPER_TOKEN      = { secure = true }
+  GOOGLE_OAUTH_CLIENT_ID          = { secure = true }
+  INTEGRATION_DB_HOST             = { secure = true }
+  JWT_SECRET_KEY                  = { secure = true }
+  LOCAL_AWS_ACCESS_KEY_ID         = { secure = true }
+  LOCAL_AWS_SECRET_ACCESS_KEY     = { secure = true }
+  LWA_REDIRECT_URI                = { secure = true }
+  LWA_SP_API_ROLE_ARN             = { secure = true }
+  LWA_SP_API_SECRET_KEY           = { secure = true }
+  LWA_SP_API_STS_NAME             = { secure = true }
+  MEETING_API_KEY_SECRET          = { secure = true }
+  META_CLIENT_ID                  = { secure = true }
+  META_CLIENT_SECRET              = { secure = true }
+  OVERTONE_API_KEY                = { secure = true }
+  OVERTONE_LAUNCH_AGENT_MODE      = { secure = true }
+  OVERTONE_LAUNCH_AGENT_NAME      = { secure = true }
+  OVERTONE_TRANSIENT_BACKOFF      = { secure = true }
+  OVERTONE_WEBHOOK_SECRET         = { secure = true }
+  PUBLIC_BASE_URL                 = { secure = true }
+  REDIS_PASSWORD                  = { secure = true }
+  REDIS_SCHEME                    = { secure = true }
+  SENDGRID_API_KEY                = { secure = true }
+  SHOPIFY_CALLBACK_URL            = { secure = true }
+  SHOPIFY_CLIENT_SECRET           = { secure = true }
+  TIKTOK_ACCESS_TOKEN             = { secure = true }
+  TIKTOK_CLIENT_ID                = { secure = true }
+}
