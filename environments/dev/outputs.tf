@@ -62,3 +62,13 @@ output "target_group_arn" {
   description = "ARN of the default ALB target group."
   value       = module.alb.target_group_arn
 }
+
+output "https_listener_arn" {
+  description = "ARN of the HTTPS listener."
+  value       = module.alb.https_listener_arn
+}
+
+output "certificate_arn" {
+  description = "ACM certificate ARN used by the HTTPS listener."
+  value       = module.alb.certificate_arn
+}

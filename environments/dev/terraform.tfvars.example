@@ -17,3 +17,4 @@ internal                   = false
 enable_deletion_protection = false
 target_group_port          = 80
 health_check_path          = "/"
+certificate_domain_name    = "agenticcreed-dev.local"

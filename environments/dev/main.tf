@@ -30,4 +30,7 @@ module "alb" {
   enable_deletion_protection = var.enable_deletion_protection
   target_group_port          = var.target_group_port
   health_check_path          = var.health_check_path
+  certificate_arn            = var.certificate_arn
+  certificate_domain_name    = var.certificate_domain_name
+  ssl_policy                 = var.ssl_policy
 }
