@@ -78,3 +78,21 @@ variable "health_check_path" {
   description = "Health check path for the default target group."
   type        = string
 }
+
+variable "certificate_arn" {
+  description = "Optional ACM certificate ARN. If not set, a self-signed certificate is created."
+  type        = string
+  default     = null
+}
+
+variable "certificate_domain_name" {
+  description = "Common name for the self-signed certificate when certificate_arn is not set."
+  type        = string
+  default     = "localhost"
+}
+
+variable "ssl_policy" {
+  description = "SSL policy for the HTTPS listener."
+  type        = string
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+}

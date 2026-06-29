@@ -27,3 +27,13 @@ output "target_group_name" {
   description = "Name of the default target group."
   value       = aws_lb_target_group.main.name
 }
+
+output "https_listener_arn" {
+  description = "ARN of the HTTPS listener."
+  value       = aws_lb_listener.https.arn
+}
+
+output "certificate_arn" {
+  description = "ACM certificate ARN used by the HTTPS listener."
+  value       = local.listener_certificate_arn
+}

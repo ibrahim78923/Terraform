@@ -78,3 +78,16 @@ resource "aws_lb_listener" "http" {
     target_group_arn = aws_lb_target_group.main.arn
   }
 }
+
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = var.ssl_policy
+  certificate_arn   = local.listener_certificate_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.main.arn
+  }
+}
