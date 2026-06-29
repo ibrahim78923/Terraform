@@ -2,9 +2,18 @@ aws_region  = "us-east-1"
 environment = "dev"
 project_name = "agenticcreed"
 
+vpc_name_prefix = "agenticcreed-dev"
+vpc_cidr        = "10.0.0.0/16"
+
 cluster_name              = "agenticcreed-dev-ecs"
 enable_container_insights = false
 
 repository_name        = "agenticcreed-dev-ecr"
 image_tag_mutability   = "MUTABLE"
 scan_on_push           = false
+
+alb_name                   = "agenticcreed-dev-alb"
+internal                   = false
+enable_deletion_protection = false
+target_group_port          = 80
+health_check_path          = "/"

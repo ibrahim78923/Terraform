@@ -2,9 +2,18 @@ aws_region  = "us-east-1"
 environment = "stage"
 project_name = "agenticcreed"
 
+vpc_name_prefix = "agenticcreed-stage"
+vpc_cidr        = "10.1.0.0/16"
+
 cluster_name              = "agenticcreed-stage-ecs"
 enable_container_insights = true
 
 repository_name        = "agenticcreed-stage-ecr"
 image_tag_mutability   = "MUTABLE"
 scan_on_push           = true
+
+alb_name                   = "agenticcreed-stage-alb"
+internal                   = false
+enable_deletion_protection = false
+target_group_port          = 80
+health_check_path          = "/"

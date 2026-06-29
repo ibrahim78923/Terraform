@@ -1,3 +1,10 @@
+module "vpc" {
+  source = "../../modules/vpc"
+
+  name_prefix = var.vpc_name_prefix
+  vpc_cidr    = var.vpc_cidr
+}
+
 module "ecs" {
   source = "../../modules/ecs"
 
@@ -11,4 +18,16 @@ module "ecr" {
   repository_name        = var.repository_name
   image_tag_mutability   = var.image_tag_mutability
   scan_on_push           = var.scan_on_push
+}
+
+module "alb" {
+  source = "../../modules/alb"
+
+  alb_name                   = var.alb_name
+  vpc_id                     = module.vpc.vpc_id
+  subnet_ids                 = module.vpc.public_subnet_ids
+  internal                   = var.internal
+  enable_deletion_protection = var.enable_deletion_protection
+  target_group_port          = var.target_group_port
+  health_check_path          = var.health_check_path
 }

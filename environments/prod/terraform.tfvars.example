@@ -2,9 +2,18 @@ aws_region  = "us-east-1"
 environment = "prod"
 project_name = "agenticcreed"
 
+vpc_name_prefix = "agenticcreed-prod"
+vpc_cidr        = "10.2.0.0/16"
+
 cluster_name              = "agenticcreed-prod-ecs"
 enable_container_insights = true
 
 repository_name        = "agenticcreed-prod-ecr"
 image_tag_mutability   = "IMMUTABLE"
 scan_on_push           = true
+
+alb_name                   = "agenticcreed-prod-alb"
+internal                   = false
+enable_deletion_protection = true
+target_group_port          = 80
+health_check_path          = "/"
