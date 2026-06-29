@@ -18,3 +18,16 @@ enable_deletion_protection = false
 target_group_port          = 80
 health_check_path          = "/"
 certificate_domain_name    = "agenticcreed-dev.local"
+
+image_tag             = "latest"
+backend_service_name  = "agenticcreed-dev-backend"
+worker_service_name   = "agenticcreed-dev-worker"
+
+backend_cpu            = 256
+backend_memory         = 512
+backend_desired_count  = 1
+backend_container_port = 80
+
+worker_cpu           = 256
+worker_memory        = 512
+worker_desired_count = 1

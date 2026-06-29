@@ -72,3 +72,23 @@ output "certificate_arn" {
   description = "ACM certificate ARN used by the HTTPS listener."
   value       = module.alb.certificate_arn
 }
+
+output "backend_service_name" {
+  description = "Name of the backend ECS service."
+  value       = module.backend_service.service_name
+}
+
+output "worker_service_name" {
+  description = "Name of the worker ECS service."
+  value       = module.worker_service.service_name
+}
+
+output "backend_log_group_name" {
+  description = "CloudWatch log group for the backend service."
+  value       = module.backend_service.log_group_name
+}
+
+output "worker_log_group_name" {
+  description = "CloudWatch log group for the worker service."
+  value       = module.worker_service.log_group_name
+}

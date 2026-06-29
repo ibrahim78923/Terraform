@@ -46,10 +46,10 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "main" {
-  name     = "${var.alb_name}-tg"
-  port     = var.target_group_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  port        = var.target_group_port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
 
   health_check {
     enabled             = true
@@ -61,6 +61,10 @@ resource "aws_lb_target_group" "main" {
     protocol            = "HTTP"
     timeout             = 5
     unhealthy_threshold = 2
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   tags = {
