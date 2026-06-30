@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket         = "orcalo-terraform-remotebackend-s3"
-    key            = "agenticcreed/dev/terraform.tfstate"
-    region         = "us-east-2"
+    bucket         = "stellar-terraform-state-pixis"
+    key            = "Stellar/dev/terraform.tfstate"
+    region         = "us-east-1"
     encrypt        = true
     use_lockfile   = true
   }
