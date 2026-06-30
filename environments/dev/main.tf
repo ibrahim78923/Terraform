@@ -47,9 +47,15 @@ module "ssm" {
 module "sqs" {
   source = "../../modules/sqs"
 
-  environment  = var.environment
-  queue_bases  = var.sqs_queue_bases
-  tags         = local.common_tags
+  environment                  = var.environment
+  queue_bases                  = var.sqs_queue_bases
+  visibility_timeout_seconds   = var.sqs_visibility_timeout_seconds
+  message_retention_seconds    = var.sqs_message_retention_seconds
+  delay_seconds                = var.sqs_delay_seconds
+  max_message_size             = var.sqs_max_message_size
+  receive_wait_time_seconds    = var.sqs_receive_wait_time_seconds
+  sqs_managed_sse_enabled      = var.sqs_managed_sse_enabled
+  tags                         = local.common_tags
 }
 
 module "backend_service" {

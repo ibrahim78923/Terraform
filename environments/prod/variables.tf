@@ -200,3 +200,37 @@ variable "sqs_queue_bases" {
     "celery",
   ]
 }
+
+variable "sqs_visibility_timeout_seconds" {
+  description = "SQS visibility timeout in seconds (15 min = 900)."
+  type        = number
+}
+
+variable "sqs_message_retention_seconds" {
+  description = "SQS message retention in seconds (14 days = 1209600)."
+  type        = number
+}
+
+variable "sqs_delay_seconds" {
+  description = "SQS delivery delay in seconds."
+  type        = number
+  default     = 0
+}
+
+variable "sqs_max_message_size" {
+  description = "SQS maximum message size in bytes (256 KiB = 262144)."
+  type        = number
+  default     = 262144
+}
+
+variable "sqs_receive_wait_time_seconds" {
+  description = "SQS ReceiveMessage long polling wait time in seconds."
+  type        = number
+  default     = 0
+}
+
+variable "sqs_managed_sse_enabled" {
+  description = "Enable SQS server-side encryption (SSE-SQS)."
+  type        = bool
+  default     = true
+}
