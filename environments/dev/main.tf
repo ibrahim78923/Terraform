@@ -1,9 +1,17 @@
+# ──────────────────────────────────────────────
+# VPC
+# ──────────────────────────────────────────────
+
 module "vpc" {
   source = "../../modules/vpc"
 
   name_prefix = var.vpc_name_prefix
   vpc_cidr    = var.vpc_cidr
 }
+
+# ──────────────────────────────────────────────
+# ECS Cluster
+# ──────────────────────────────────────────────
 
 module "ecs" {
   source = "../../modules/ecs"
@@ -12,13 +20,21 @@ module "ecs" {
   enable_container_insights = var.enable_container_insights
 }
 
+# ──────────────────────────────────────────────
+# ECR
+# ──────────────────────────────────────────────
+
 module "ecr" {
   source = "../../modules/ecr"
 
-  repository_name        = var.repository_name
-  image_tag_mutability   = var.image_tag_mutability
-  scan_on_push           = var.scan_on_push
+  repository_name      = var.repository_name
+  image_tag_mutability = var.image_tag_mutability
+  scan_on_push         = var.scan_on_push
 }
+
+# ──────────────────────────────────────────────
+# Application Load Balancer
+# ──────────────────────────────────────────────
 
 module "alb" {
   source = "../../modules/alb"
@@ -35,28 +51,9 @@ module "alb" {
   ssl_policy                 = var.ssl_policy
 }
 
-module "ssm" {
-  source = "../../modules/ssm"
-
-  prefix     = var.ssm_parameter_prefix
-  parameters = var.ssm_parameters
-
-  tags = local.common_tags
-}
-
-module "sqs" {
-  source = "../../modules/sqs"
-
-  environment                  = var.environment
-  queue_bases                  = var.sqs_queue_bases
-  visibility_timeout_seconds   = var.sqs_visibility_timeout_seconds
-  message_retention_seconds    = var.sqs_message_retention_seconds
-  delay_seconds                = var.sqs_delay_seconds
-  max_message_size             = var.sqs_max_message_size
-  receive_wait_time_seconds    = var.sqs_receive_wait_time_seconds
-  sqs_managed_sse_enabled      = var.sqs_managed_sse_enabled
-  tags                         = local.common_tags
-}
+# ──────────────────────────────────────────────
+# Backend Service
+# ──────────────────────────────────────────────
 
 module "backend_service" {
   source = "../../modules/ecs-service"
@@ -83,6 +80,10 @@ module "backend_service" {
   )
 }
 
+# ──────────────────────────────────────────────
+# Worker Service
+# ──────────────────────────────────────────────
+
 module "worker_service" {
   source = "../../modules/ecs-service"
 
@@ -103,4 +104,35 @@ module "worker_service" {
     },
     var.worker_environment
   )
+}
+
+# ──────────────────────────────────────────────
+# SQS
+# ──────────────────────────────────────────────
+
+module "sqs" {
+  source = "../../modules/sqs"
+
+  environment                = var.environment
+  queue_bases                  = var.sqs_queue_bases
+  visibility_timeout_seconds   = var.sqs_visibility_timeout_seconds
+  message_retention_seconds    = var.sqs_message_retention_seconds
+  delay_seconds                = var.sqs_delay_seconds
+  max_message_size             = var.sqs_max_message_size
+  receive_wait_time_seconds    = var.sqs_receive_wait_time_seconds
+  sqs_managed_sse_enabled      = var.sqs_managed_sse_enabled
+  tags                         = local.common_tags
+}
+
+# ──────────────────────────────────────────────
+# Parameter Store (SecureString encryption)
+# ──────────────────────────────────────────────
+
+module "ssm" {
+  source = "../../modules/ssm"
+
+  prefix     = var.ssm_parameter_prefix
+  parameters = var.ssm_parameters
+
+  tags = local.common_tags
 }
