@@ -1,16 +1,36 @@
-aws_region  = "us-east-1"
-environment = "stage"
+# ──────────────────────────────────────────────
+# General
+# ──────────────────────────────────────────────
+
+aws_region   = "us-east-1"
+environment  = "stage"
 project_name = "stellar"
+
+# ──────────────────────────────────────────────
+# VPC
+# ──────────────────────────────────────────────
 
 vpc_name_prefix = "stellar-stage"
 vpc_cidr        = "10.1.0.0/16"
 
+# ──────────────────────────────────────────────
+# ECS Cluster
+# ──────────────────────────────────────────────
+
 cluster_name              = "stellar-stage-ecs"
 enable_container_insights = true
 
-repository_name        = "stellar-stage-ecr"
-image_tag_mutability   = "MUTABLE"
-scan_on_push           = true
+# ──────────────────────────────────────────────
+# ECR
+# ──────────────────────────────────────────────
+
+repository_name      = "stellar-stage-ecr"
+image_tag_mutability = "MUTABLE"
+scan_on_push         = true
+
+# ──────────────────────────────────────────────
+# Application Load Balancer
+# ──────────────────────────────────────────────
 
 alb_name                   = "stellar-stage-alb"
 internal                   = false
@@ -19,18 +39,34 @@ target_group_port          = 8000
 health_check_path          = "/health"
 certificate_domain_name    = "stellar-stage.local"
 
-image_tag             = "latest"
-backend_service_name  = "stellar-stage-backend"
-worker_service_name   = "stellar-stage-worker"
+# ──────────────────────────────────────────────
+# ECS Services (shared)
+# ──────────────────────────────────────────────
+
+image_tag            = "latest"
+backend_service_name = "stellar-stage-backend"
+worker_service_name  = "stellar-stage-worker"
+
+# ──────────────────────────────────────────────
+# Backend Service
+# ──────────────────────────────────────────────
 
 backend_cpu            = 256
 backend_memory         = 512
 backend_desired_count  = 1
 backend_container_port = 8000
 
+# ──────────────────────────────────────────────
+# Worker Service
+# ──────────────────────────────────────────────
+
 worker_cpu           = 256
 worker_memory        = 512
 worker_desired_count = 1
+
+# ──────────────────────────────────────────────
+# SQS
+# ──────────────────────────────────────────────
 
 sqs_queue_bases = [
   "stellar-airbyte-connection-setup",
@@ -50,9 +86,13 @@ sqs_max_message_size           = 262144
 sqs_receive_wait_time_seconds  = 0
 sqs_managed_sse_enabled        = true
 
-# Keys only — values set in AWS Console → Parameter Store
+# ──────────────────────────────────────────────
+# Parameter Store (SecureString encryption)
+# ──────────────────────────────────────────────
+
 ssm_parameter_prefix = "stellar/stage"
 
+# Keys only — values set in AWS Console → Parameter Store
 ssm_parameters = {
   AIRBYTE_TOKEN_URL               = { secure = true }
   ALLOWED_HOSTS                   = { secure = true }

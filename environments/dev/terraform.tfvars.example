@@ -1,16 +1,36 @@
-aws_region  = "us-east-1"
-environment = "dev"
+# ──────────────────────────────────────────────
+# General
+# ──────────────────────────────────────────────
+
+aws_region   = "us-east-1"
+environment  = "dev"
 project_name = "stellar"
+
+# ──────────────────────────────────────────────
+# VPC
+# ──────────────────────────────────────────────
 
 vpc_name_prefix = "stellar-dev"
 vpc_cidr        = "10.0.0.0/16"
 
+# ──────────────────────────────────────────────
+# ECS Cluster
+# ──────────────────────────────────────────────
+
 cluster_name              = "stellar-dev-ecs"
 enable_container_insights = false
 
-repository_name        = "stellar-dev-ecr"
-image_tag_mutability   = "MUTABLE"
-scan_on_push           = false
+# ──────────────────────────────────────────────
+# ECR
+# ──────────────────────────────────────────────
+
+repository_name      = "stellar-dev-ecr"
+image_tag_mutability = "MUTABLE"
+scan_on_push         = false
+
+# ──────────────────────────────────────────────
+# Application Load Balancer
+# ──────────────────────────────────────────────
 
 alb_name                   = "stellar-dev-alb"
 internal                   = false
@@ -19,18 +39,34 @@ target_group_port          = 8000
 health_check_path          = "/health"
 certificate_domain_name    = "stellar-dev.local"
 
-image_tag             = "latest"
-backend_service_name  = "stellar-dev-backend"
-worker_service_name   = "stellar-dev-worker"
+# ──────────────────────────────────────────────
+# ECS Services (shared)
+# ──────────────────────────────────────────────
+
+image_tag            = "latest"
+backend_service_name = "stellar-dev-backend"
+worker_service_name  = "stellar-dev-worker"
+
+# ──────────────────────────────────────────────
+# Backend Service
+# ──────────────────────────────────────────────
 
 backend_cpu            = 1024
 backend_memory         = 2048
 backend_desired_count  = 1
 backend_container_port = 8000
 
+# ──────────────────────────────────────────────
+# Worker Service
+# ──────────────────────────────────────────────
+
 worker_cpu           = 1024
 worker_memory        = 2048
 worker_desired_count = 1
+
+# ──────────────────────────────────────────────
+# SQS
+# ──────────────────────────────────────────────
 
 sqs_queue_bases = [
   "stellar-airbyte-connection-setup",
@@ -50,9 +86,13 @@ sqs_max_message_size           = 262144
 sqs_receive_wait_time_seconds  = 0
 sqs_managed_sse_enabled        = true
 
-# Keys only — values set in AWS Console → Parameter Store
+# ──────────────────────────────────────────────
+# Parameter Store (SecureString encryption)
+# ──────────────────────────────────────────────
+
 ssm_parameter_prefix = "stellar/dev"
 
+# Keys only — values set in AWS Console → Parameter Store
 ssm_parameters = {
   AIRBYTE_TOKEN_URL               = { secure = true }
   ALLOWED_HOSTS                   = { secure = true }
