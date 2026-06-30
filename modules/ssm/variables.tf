@@ -1,5 +1,5 @@
 variable "prefix" {
-  description = "SSM parameter path prefix without leading slash (e.g. agenticcreed/dev)."
+  description = "SSM parameter path prefix without leading slash (e.g. stellar/dev)."
   type        = string
 }
 

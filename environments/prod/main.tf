@@ -44,6 +44,14 @@ module "ssm" {
   tags = local.common_tags
 }
 
+module "sqs" {
+  source = "../../modules/sqs"
+
+  environment = var.environment
+  queue_bases = var.sqs_queue_bases
+  tags        = local.common_tags
+}
+
 module "backend_service" {
   source = "../../modules/ecs-service"
 

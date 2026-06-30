@@ -102,3 +102,13 @@ output "ssm_parameter_names" {
   description = "Map of env keys to full SSM parameter names."
   value       = module.ssm.parameter_names
 }
+
+output "sqs_queue_names" {
+  description = "Map of queue base name to full SQS queue name."
+  value       = module.sqs.queue_names
+}
+
+output "sqs_queue_urls" {
+  description = "Map of queue base name to SQS queue URL."
+  value       = module.sqs.queue_urls
+}

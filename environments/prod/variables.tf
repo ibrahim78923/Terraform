@@ -172,9 +172,9 @@ variable "worker_environment" {
 }
 
 variable "ssm_parameter_prefix" {
-  description = "SSM Parameter Store path prefix (e.g. agenticcreed/prod)."
+  description = "SSM Parameter Store path prefix (e.g. stellar/prod)."
   type        = string
-  default     = "agenticcreed/prod"
+  default     = "stellar/prod"
 }
 
 variable "ssm_parameters" {
@@ -184,4 +184,19 @@ variable "ssm_parameters" {
     description = optional(string, "")
   }))
   default = {}
+}
+
+variable "sqs_queue_bases" {
+  description = "SQS queue base names. Created as {base}-{environment} (e.g. stellar-default-queue-prod)."
+  type        = list(string)
+  default = [
+    "stellar-airbyte-connection-setup",
+    "stellar-automation-workflow",
+    "stellar-dashboard-actions",
+    "stellar-default-queue",
+    "stellar-google-sheets-scheduler",
+    "stellar-google-sheets-sync",
+    "stellar-strategy-scheduler",
+    "celery",
+  ]
 }
